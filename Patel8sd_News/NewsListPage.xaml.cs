@@ -1,8 +1,6 @@
-﻿using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using Microsoft.Maui.Controls;
 using Patel8sd_News.Models;
 
 namespace Patel8sd_News
@@ -14,7 +12,6 @@ namespace Patel8sd_News
         public NewsListPage(string category)
         {
             InitializeComponent();
-
             _category = category;
             CategoryLabel.Text = _category.ToUpper();
             LoadNewsAsync();
@@ -35,7 +32,6 @@ namespace Patel8sd_News
                     var articlesWithImages = response.Articles
                         .Where(article => !string.IsNullOrEmpty(article.Image))
                         .ToList();
-
                     NewsCollectionView.ItemsSource = articlesWithImages;
                 }
                 else
@@ -49,15 +45,13 @@ namespace Patel8sd_News
             }
         }
 
-        private async void OnArticleSelected(object sender, SelectionChangedEventArgs e)
+        // New event handler for the tap gesture
+        private async void OnArticleTapped(object sender, TappedEventArgs e)
         {
-            var selectedArticle = e.CurrentSelection.FirstOrDefault() as Article;
-
+            var selectedArticle = e.Parameter as Article;
             if (selectedArticle != null)
             {
-                Console.WriteLine("DEBUG: Opening article: " + selectedArticle.Title); // Add this
                 await Navigation.PushAsync(new NewsDetailPage(selectedArticle));
-                NewsCollectionView.SelectedItem = null;
             }
         }
     }

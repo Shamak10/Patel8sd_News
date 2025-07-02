@@ -10,12 +10,15 @@
                VerticalOptions="Start" />
 
         <CollectionView x:Name="NewsCollectionView"
-                        SelectionMode="Single"
-                        SelectionChanged="OnArticleSelected"
                         VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BorderColor="LightGray" CornerRadius="8" Padding="10" Margin="5">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Tapped="OnArticleTapped" 
+                                CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
                         <StackLayout Orientation="Horizontal" Spacing="10">
                             <Image Source="{Binding Image}"
                                    WidthRequest="100"
